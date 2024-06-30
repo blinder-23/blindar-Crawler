@@ -1,0 +1,9 @@
+selenium == 4.4.3
+pyvirtualdisplay ==3.0
+pymysql ==1.1.0
+Flask ==2.3.3
+requests == 2.31.0
+webdriver_manager ==4.0.1
+rich ==13.7.0
+
+

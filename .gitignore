@@ -1,0 +1,11 @@
+/data
+*.pyc
+nohup.out
+*-log
+neis-key
+sql-password
+.vscode
+get-pip.py
+/scripts/
+```
+/log/
