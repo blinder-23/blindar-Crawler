@@ -68,8 +68,7 @@ def check_table_exists(cursor):
             ingredient_id INT AUTO_INCREMENT,
             name VARCHAR(50) NOT NULL,
             origin VARCHAR(50) NOT NULL DEFAULT '정보 없음',
-            PRIMARY KEY (name, origin),
-            UNIQUE KEY (ingredient_id)
+            PRIMARY KEY (ingredient_id)
         )
     ''')
 
@@ -83,11 +82,12 @@ def check_table_exists(cursor):
         )
     ''')
 
-    create_table_if_not_exists(cursor, 'dish_allergie', '''
-        CREATE TABLE dish_allergie (
+    create_table_if_not_exists(cursor, 'dish_allergies', '''
+        CREATE TABLE dish_allergies (
+            allergy_id INT AUTO_INCREMENT,
             dish_id INT NOT NULL,
-            allergie INT NOT NULL,
-            PRIMARY KEY (dish_id,allergie),
+            allergy INT NOT NULL,
+            PRIMARY KEY (allergy_id,dish_id),
             FOREIGN KEY (dish_id) REFERENCES dish (dish_id) ON DELETE CASCADE ON UPDATE CASCADE
         )
     ''')
@@ -132,11 +132,11 @@ def save_meals(allData):
 
                         dish_id = cursor.lastrowid
 
-                        for allergie in dish[1]:
+                        for allergy in dish[1]:
                             cursor.execute('''
-                            INSERT INTO dish_allergie (dish_id, allergie)
+                            INSERT INTO dish_allergies (dish_id, allergy)
                             VALUES (%s, %s)
-                            ''', (dish_id, allergie))
+                            ''', (dish_id, allergy))
 
                     for ingredient_name, origin in meal.origins.items():
                         cursor.execute('''

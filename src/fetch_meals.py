@@ -1,8 +1,10 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import requests
 import re
 from domain.meal import Meal
 import src.sql as sql
-import sys
 from config.school_codes import school_code_pairs
 import src.meal_sql as db
 
