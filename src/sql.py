@@ -14,10 +14,20 @@ def start_mysql():
 
 
 def get_connection():
-    with open('../etc/sql-password', 'r', encoding='utf-8') as f:
-        password = f.readline().strip()
+    db_config = {}
+    with open('../etc/database', 'r', encoding='utf-8') as f:
+        for line in f:
+            key, value = line.strip().split('=', 1)
+            db_config[key] = value
+    
+    # 데이터베이스 연결 설정
     return pymysql.connect(
-        host='localhost', user='root', password=password, charset='utf8mb4')
+        host=db_config.get('host', 'localhost'),  # 기본값 설정
+        port=int(db_config.get('port', 3306)),    # 기본값 설정
+        user=db_config.get('user', 'root'),
+        password=db_config.get('password', ''),
+        charset=db_config.get('charset', 'utf8mb4')
+    )
 
 
 def create_and_use_database(cursor: Cursor):
